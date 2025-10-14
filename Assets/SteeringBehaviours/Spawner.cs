@@ -4,7 +4,7 @@ using System.Collections.Generic;
 public class Spawner : MonoBehaviour
 {
     //public GameObject prefab;
-    public int amount;
+    
     public float spacing = 2f; 
     public int gridSize = 5;   
     public Transform spawnOrigin;
@@ -32,11 +32,15 @@ public class Spawner : MonoBehaviour
             for (int z = 0; z < gridSize; z++)
             {
                 Vector3 position = startPos + new Vector3(x * spacing, 0, z * spacing);
-                //randomly select
                 GameObject selectedPrefab = prefabs[Random.Range(0, prefabs.Count)];
-                Instantiate(selectedPrefab, position, Quaternion.identity);
+                
+                // the only time I haven't used rb to rotate the object 
+                Quaternion randomRotation = Quaternion.Euler(0, Random.Range(0f, 360f), 0);
+                
+                Instantiate(selectedPrefab, position, randomRotation);
             }
         }
     }
+
 
 }

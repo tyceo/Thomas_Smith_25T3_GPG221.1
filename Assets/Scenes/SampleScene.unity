@@ -239,7 +239,7 @@ GameObject:
   - component: {fileID: 77211209}
   - component: {fileID: 77211208}
   - component: {fileID: 77211207}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Cube (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -347,7 +347,7 @@ GameObject:
   - component: {fileID: 174919789}
   - component: {fileID: 174919788}
   - component: {fileID: 174919787}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Cube (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -455,7 +455,7 @@ GameObject:
   - component: {fileID: 220556078}
   - component: {fileID: 220556077}
   - component: {fileID: 220556076}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Cube (5)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -838,14 +838,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: baa6d5f9510fe864b9a766c7b636bb9e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  amount: 1
   spacing: 2
-  gridSize: 4
+  gridSize: 7
   spawnOrigin: {fileID: 1828569702}
   prefabs:
-  - {fileID: 6782961313300029418, guid: 926bcfdc336154c4bbf3947f53525bcd, type: 3}
-  - {fileID: 6782961313300029418, guid: 0cc1fafe90b1dde41b1fb61a7fd3e201, type: 3}
-  - {fileID: 6782961313300029418, guid: a0ce5e02d84510846b5acebd56df4f85, type: 3}
   - {fileID: 6782961313300029418, guid: 38860acfeb933434aa2127542689bac9, type: 3}
 --- !u!4 &531735074
 Transform:
@@ -874,7 +870,7 @@ GameObject:
   - component: {fileID: 749912903}
   - component: {fileID: 749912902}
   - component: {fileID: 749912901}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Cylinder
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -984,7 +980,7 @@ GameObject:
   - component: {fileID: 773380250}
   - component: {fileID: 773380249}
   - component: {fileID: 773380248}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Cylinder (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1094,7 +1090,7 @@ GameObject:
   - component: {fileID: 794446816}
   - component: {fileID: 794446815}
   - component: {fileID: 794446814}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Cube (4)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1695,7 +1691,7 @@ GameObject:
   - component: {fileID: 1484177952}
   - component: {fileID: 1484177951}
   m_Layer: 0
-  m_Name: Centre
+  m_Name: CentreZone
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1804,7 +1800,7 @@ GameObject:
   - component: {fileID: 1490601186}
   - component: {fileID: 1490601185}
   - component: {fileID: 1490601184}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Cube (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1912,7 +1908,7 @@ GameObject:
   - component: {fileID: 1572022083}
   - component: {fileID: 1572022082}
   - component: {fileID: 1572022081}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Cube (7)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2051,7 +2047,7 @@ GameObject:
   - component: {fileID: 1893515857}
   - component: {fileID: 1893515856}
   - component: {fileID: 1893515855}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Cube (6)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2159,7 +2155,7 @@ GameObject:
   - component: {fileID: 1935047227}
   - component: {fileID: 1935047226}
   - component: {fileID: 1935047225}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Cube (8)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2267,7 +2263,7 @@ GameObject:
   - component: {fileID: 2114096762}
   - component: {fileID: 2114096761}
   - component: {fileID: 2114096760}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Cylinder (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2365,6 +2361,63 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2114096758}
   m_Mesh: {fileID: 10206, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1001 &4490076107429822128
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 6782961313300029418, guid: 38860acfeb933434aa2127542689bac9, type: 3}
+      propertyPath: m_Name
+      value: RedNPC
+      objectReference: {fileID: 0}
+    - target: {fileID: 7886439253894804695, guid: 38860acfeb933434aa2127542689bac9, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -11.97112
+      objectReference: {fileID: 0}
+    - target: {fileID: 7886439253894804695, guid: 38860acfeb933434aa2127542689bac9, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.9700012
+      objectReference: {fileID: 0}
+    - target: {fileID: 7886439253894804695, guid: 38860acfeb933434aa2127542689bac9, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 14.943273
+      objectReference: {fileID: 0}
+    - target: {fileID: 7886439253894804695, guid: 38860acfeb933434aa2127542689bac9, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.9079519
+      objectReference: {fileID: 0}
+    - target: {fileID: 7886439253894804695, guid: 38860acfeb933434aa2127542689bac9, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7886439253894804695, guid: 38860acfeb933434aa2127542689bac9, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0.4190744
+      objectReference: {fileID: 0}
+    - target: {fileID: 7886439253894804695, guid: 38860acfeb933434aa2127542689bac9, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7886439253894804695, guid: 38860acfeb933434aa2127542689bac9, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7886439253894804695, guid: 38860acfeb933434aa2127542689bac9, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: -49.552
+      objectReference: {fileID: 0}
+    - target: {fileID: 7886439253894804695, guid: 38860acfeb933434aa2127542689bac9, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 38860acfeb933434aa2127542689bac9, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
@@ -2380,3 +2433,4 @@ SceneRoots:
   - {fileID: 821148773}
   - {fileID: 993103600}
   - {fileID: 1484177954}
+  - {fileID: 4490076107429822128}
