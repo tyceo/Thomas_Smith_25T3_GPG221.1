@@ -842,6 +842,9 @@ MonoBehaviour:
   gridSize: 7
   spawnOrigin: {fileID: 1828569702}
   prefabs:
+  - {fileID: 6782961313300029418, guid: 926bcfdc336154c4bbf3947f53525bcd, type: 3}
+  - {fileID: 6782961313300029418, guid: 0cc1fafe90b1dde41b1fb61a7fd3e201, type: 3}
+  - {fileID: 6782961313300029418, guid: a0ce5e02d84510846b5acebd56df4f85, type: 3}
   - {fileID: 6782961313300029418, guid: 38860acfeb933434aa2127542689bac9, type: 3}
 --- !u!4 &531735074
 Transform:
@@ -2372,6 +2375,10 @@ PrefabInstance:
     - target: {fileID: 6782961313300029418, guid: 38860acfeb933434aa2127542689bac9, type: 3}
       propertyPath: m_Name
       value: RedNPC
+      objectReference: {fileID: 0}
+    - target: {fileID: 6782961313300029418, guid: 38860acfeb933434aa2127542689bac9, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7886439253894804695, guid: 38860acfeb933434aa2127542689bac9, type: 3}
       propertyPath: m_LocalPosition.x

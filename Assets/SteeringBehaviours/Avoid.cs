@@ -9,7 +9,10 @@ public class Avoid : MonoBehaviour
     public LayerMask targetLayers;
     public Rigidbody rb;
 
+    public float baseAvoidanceStrength = 1f;   
+    public float turnStrengthMultiplier = 3f;
 
+    
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -47,5 +50,8 @@ public class Avoid : MonoBehaviour
             Gizmos.DrawRay(transform.position, transform.forward * rayDistance);
         }
     }
+    
+    
+
 
 }
