@@ -18,8 +18,16 @@ public class Avoid : MonoBehaviour
     
     public bool isHitting;
 
+    public int forwardLeftOrRight = 1;
+
     void Start()
     {
+        if (gameObject.name == "Forward")
+        {
+            //forwardLeftOrRight = Random.Range(1, 3);
+            //forwardLeftOrRight = Random.Range(0, 2) == 0 ? -1 : 1;         //randomly choose if Object spins left or right. this is to try and make objects move better
+            //turnSpeed = turnSpeed * forwardLeftOrRight;
+        }
         rb = GetComponentInParent<Rigidbody>();
         moveForward = GetComponentInParent<MoveForward>();
         isLeftObject = gameObject.name == "Left";
