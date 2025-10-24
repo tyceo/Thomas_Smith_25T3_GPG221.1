@@ -545,7 +545,7 @@ Transform:
   m_GameObject: {fileID: 220556075}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: 0.38032946, z: -0, w: 0.92485106}
-  m_LocalPosition: {x: 0.057514843, y: -9.13, z: 0.1291678}
+  m_LocalPosition: {x: 0.0256, y: -9.13, z: 0.1786}
   m_LocalScale: {x: 0.27855265, y: 27.819, z: 0.014833555}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -842,9 +842,6 @@ MonoBehaviour:
   gridSize: 7
   spawnOrigin: {fileID: 1828569702}
   prefabs:
-  - {fileID: 6782961313300029418, guid: 926bcfdc336154c4bbf3947f53525bcd, type: 3}
-  - {fileID: 6782961313300029418, guid: 0cc1fafe90b1dde41b1fb61a7fd3e201, type: 3}
-  - {fileID: 6782961313300029418, guid: a0ce5e02d84510846b5acebd56df4f85, type: 3}
   - {fileID: 6782961313300029418, guid: 38860acfeb933434aa2127542689bac9, type: 3}
 --- !u!4 &531735074
 Transform:
@@ -2376,13 +2373,9 @@ PrefabInstance:
       propertyPath: m_Name
       value: RedNPC
       objectReference: {fileID: 0}
-    - target: {fileID: 6782961313300029418, guid: 38860acfeb933434aa2127542689bac9, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 7886439253894804695, guid: 38860acfeb933434aa2127542689bac9, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -11.97112
+      value: -7.61
       objectReference: {fileID: 0}
     - target: {fileID: 7886439253894804695, guid: 38860acfeb933434aa2127542689bac9, type: 3}
       propertyPath: m_LocalPosition.y
@@ -2390,7 +2383,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7886439253894804695, guid: 38860acfeb933434aa2127542689bac9, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 14.943273
+      value: 15.31
       objectReference: {fileID: 0}
     - target: {fileID: 7886439253894804695, guid: 38860acfeb933434aa2127542689bac9, type: 3}
       propertyPath: m_LocalRotation.w

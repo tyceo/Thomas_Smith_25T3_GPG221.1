@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 5695743171277728281}
   - component: {fileID: 3316870330688128030}
   - component: {fileID: 1724235223352888138}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Eye (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -118,7 +118,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7504087582708891300}
   - component: {fileID: 6816511122036878282}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Left
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -157,8 +157,11 @@ MonoBehaviour:
   turnSpeed: -50
   targetLayers:
     serializedVersion: 2
-    m_Bits: 73
+    m_Bits: 201
   rb: {fileID: 0}
+  whatLeftIsHitting: 
+  whatRightIsHitting: 
+  isHitting: 0
 --- !u!1 &5102067214151641923
 GameObject:
   m_ObjectHideFlags: 0
@@ -169,7 +172,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5210977594446589964}
   - component: {fileID: 6197918193776681650}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: VisualFeedback
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -221,9 +224,11 @@ GameObject:
   - component: {fileID: 8095787857737069430}
   - component: {fileID: 5445386925016265173}
   - component: {fileID: 1332380446356950222}
-  m_Layer: 0
+  - component: {fileID: 2863166169888409123}
+  - component: {fileID: 8620618252999569964}
+  m_Layer: 7
   m_Name: RedNPC
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -339,6 +344,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Rb: {fileID: 0}
   zSpeed: 500
+  speedIncreaseRate: 50
+  maxSpeed: 2000
 --- !u!54 &1332380446356950222
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -366,6 +373,33 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 80
   m_CollisionDetection: 0
+--- !u!114 &2863166169888409123
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6782961313300029418}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dc7df8a6c3e91034ebd0164a64bfc595, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  leftSensor: {fileID: 0}
+  rightSensor: {fileID: 0}
+--- !u!114 &8620618252999569964
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6782961313300029418}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d965d2f8936d28c4bb375faf4fc33e76, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  strength: 10
 --- !u!1 &7416463565728265056
 GameObject:
   m_ObjectHideFlags: 0
@@ -376,7 +410,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2921816021641782641}
   - component: {fileID: 5830799285711853275}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Forward
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -412,11 +446,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rayDistance: 1
   showDebugRay: 1
-  turnSpeed: -1000
+  turnSpeed: -500
   targetLayers:
     serializedVersion: 2
-    m_Bits: 73
+    m_Bits: 201
   rb: {fileID: 0}
+  whatLeftIsHitting: 
+  whatRightIsHitting: 
+  isHitting: 0
 --- !u!1 &7698960125069910327
 GameObject:
   m_ObjectHideFlags: 0
@@ -429,7 +466,7 @@ GameObject:
   - component: {fileID: 156201223420280964}
   - component: {fileID: 8216065122583479370}
   - component: {fileID: 2192899593890392934}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Eye
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -535,7 +572,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5608904980372301975}
   - component: {fileID: 7640244204466192829}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Right
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -574,5 +611,8 @@ MonoBehaviour:
   turnSpeed: -50
   targetLayers:
     serializedVersion: 2
-    m_Bits: 73
+    m_Bits: 201
   rb: {fileID: 0}
+  whatLeftIsHitting: 
+  whatRightIsHitting: 
+  isHitting: 0
