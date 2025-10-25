@@ -2,42 +2,60 @@ using UnityEngine;
 
 public class TurnTowards : MonoBehaviour
 {
-    public float turnSpeed = 2;
-    public Transform targetObjectTransform;
-    public Vector3 targetPosition;
-    public Rigidbody rb;
-    
-    void Start()
+    // configuration
+    [SerializeField] private float rotationSpeed = 180f;
+
+    // state tracking
+    private Vector3 targetPosition;
+    private bool hasTarget = false;
+    private bool shouldRotate = true;
+
+    // public control methods
+    public void SetTarget(Vector3 position)
     {
-        
-        if (rb == null)
-        {
-            rb = GetComponent<Rigidbody>();
-        }
+        targetPosition = position;
+        hasTarget = true;
     }
 
-    void FixedUpdate()
+    public void StopTurning()
     {
-        if (rb == null) return;
+        shouldRotate = false;
+    }
 
-        Vector3 targetDir;
-        if (targetObjectTransform != null)
-        {
-            // Has a target gameobject
-            targetDir = (targetObjectTransform.position - transform.position).normalized;
-        }
-        else
-        {
-            // Just a raw position in the world (for pathfinding points)
-            targetDir = (targetPosition - transform.position).normalized;
-        }
-
-        // calculate the signed angle between our forward direction and target direction
-        float angle = Vector3.SignedAngle(transform.forward, targetDir, Vector3.up);
-        
-        
-        rb.AddRelativeTorque(0f, angle * turnSpeed, 0f);
+    public void StartTurning()
+    {
+        shouldRotate = true;
     }
 
     
+    private void Update()
+    {
+        if (!hasTarget || !shouldRotate) return;
+
+        Vector3 directionToTarget = (targetPosition - transform.position).normalized;
+        directionToTarget.y = 0;
+        
+        if (directionToTarget != Vector3.zero)
+        {
+            Quaternion targetRotation = Quaternion.LookRotation(directionToTarget);
+            
+            transform.rotation = Quaternion.RotateTowards(
+                transform.rotation,
+                targetRotation,
+                rotationSpeed * Time.deltaTime
+            );
+        }
+    }
+
+    // utility methods
+    public bool IsTargetReached()
+    {
+        if (!hasTarget) return false;
+        
+        Vector3 directionToTarget = (targetPosition - transform.position).normalized;
+        float dot = Vector3.Dot(transform.forward, directionToTarget);
+        return dot >= 0.99f;
+    }
+
+    public bool IsRotating => shouldRotate;
 }

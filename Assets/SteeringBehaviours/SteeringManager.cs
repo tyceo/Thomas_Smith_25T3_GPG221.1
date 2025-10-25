@@ -24,13 +24,13 @@ public class SteeringManager : MonoBehaviour
     {
         if (leftAvoid != null && rightAvoid != null && turnTowards != null)
         {
-            // Check if either raycast is hitting
+            // if the sensor hits an npc and the wall at the same time, the object will stop detecting the player until it's not hitting the wall anymore
             bool anyRayHitting = leftAvoid.isHitting || rightAvoid.isHitting;
             
-            // Enable/disable TurnTowards based on ray hits
+            
             turnTowards.enabled = !anyRayHitting;
 
-            // Previous sensor logic
+            
             bool bothSensorsHitting = leftAvoid.isHitting && rightAvoid.isHitting;
             string leftHit = leftAvoid.whatLeftIsHitting;
             string rightHit = rightAvoid.whatRightIsHitting;

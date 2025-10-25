@@ -46,7 +46,7 @@ public class Avoid : MonoBehaviour
         
         if (isHitting)
         {
-            // Reset speed when obstacle detected
+            // reset speed when obstacle detected
             if (moveForward != null)
             {
                 moveForward.ResetSpeed();
