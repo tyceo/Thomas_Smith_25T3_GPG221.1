@@ -3,41 +3,57 @@ using UnityEngine.AI;
 
 public class PathFollower : MonoBehaviour
 {
-    // variables for path management
+    // variables - path management
     private NavMeshPath path;
-    public Transform targetPoint;
     private Vector3 lastPoint;
     private int currentPathIndex = 0;
     private bool hasPath = false;
     private bool needsNewPath = true;
 
     [SerializeField] private float pointReachedThreshold = 0.5f;
+    [SerializeField] private float randomPointRange = 50f; // how far from current position to search for random points
+    [SerializeField] private float minDistanceFromGround = 5f; // minimum distance from ground layer objects
+    [SerializeField] private int maxAttempts = 30; // maximum attempts to find a valid point
     private TurnTowards turnTowards;
     
-    // state tracking
+    // variables - state tracking
     public bool IsAtEndOfPath { get; private set; }
     public bool EnableTurning = true;
 
-    // initialization
+    // unity callbacks - initialization
     private void Awake()
     {
         path = new NavMeshPath();
         turnTowards = GetComponent<TurnTowards>();
     }
 
-    
+    private void OnEnable()
+    {
+        PathFollowerManager.RegisterPathFollower(this);
+    }
+
+    private void OnDisable()
+    {
+        PathFollowerManager.UnregisterPathFollower(this);
+    }
+
+    // unity callbacks - per frame updates
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
+        // check for redzone target request
+        if (Input.GetKeyDown(KeyCode.Alpha1) || Input.GetKeyDown(KeyCode.Keypad1))
         {
-            RequestNewPath();
+            RequestPathToRedZone();
         }
-
-        if (targetPoint != null && needsNewPath)
+        
+        if (needsNewPath)
         {
-            Vector3 flatTarget = FlattenVector(targetPoint.position);
-            CalculatePath(flatTarget);
-            needsNewPath = false;
+            Vector3 randomTarget = GetRandomNavMeshPoint(transform.position, randomPointRange);
+            if (randomTarget != Vector3.zero)
+            {
+                CalculatePath(randomTarget);
+                needsNewPath = false;
+            }
         }
 
         if (hasPath)
@@ -47,7 +63,50 @@ public class PathFollower : MonoBehaviour
         }
     }
 
-    // path calculation
+    // pathfinding - get a random valid point on the navmesh
+    private Vector3 GetRandomNavMeshPoint(Vector3 center, float range)
+    {
+        // use the grid system if available
+        if (NavMeshGridGenerator.Instance != null)
+        {
+            return NavMeshGridGenerator.Instance.GetRandomValidPositionNear(center, range);
+        }
+        
+        // fallback to original method
+        int groundLayer = LayerMask.GetMask("Ground");
+        
+        for (int attempt = 0; attempt < maxAttempts; attempt++)
+        {
+            // generate a random point within the range
+            Vector3 randomDirection = Random.insideUnitSphere * range;
+            randomDirection += center;
+
+            NavMeshHit hit;
+            // sample the navmesh to find the nearest valid point
+            if (NavMesh.SamplePosition(randomDirection, out hit, range, NavMesh.AllAreas))
+            {
+                // check if this point is far enough from ground layer objects
+                if (IsPointFarFromGround(hit.position, minDistanceFromGround, groundLayer))
+                {
+                    return hit.position;
+                }
+            }
+        }
+
+        return Vector3.zero; // return zero if no valid point found after all attempts
+    }
+
+    // pathfinding - check if a point is at least mindistance away from any ground layer object
+    private bool IsPointFarFromGround(Vector3 point, float minDistance, int groundLayerMask)
+    {
+        // use overlapsphere to check for any ground layer colliders within the minimum distance
+        Collider[] colliders = Physics.OverlapSphere(point, minDistance, groundLayerMask);
+        
+        // if no colliders found, the point is valid (far enough from ground objects)
+        return colliders.Length == 0;
+    }
+
+    // pathfinding - path calculation
     public void CalculatePath(Vector3 target)
     {
         Vector3 flatStart = FlattenVector(transform.position);
@@ -59,7 +118,7 @@ public class PathFollower : MonoBehaviour
         }
     }
 
-    // path following logic
+    // movement - path following logic
     private void FollowPath()
     {
         if (!hasPath || path.corners.Length == 0 || currentPathIndex >= path.corners.Length)
@@ -99,43 +158,78 @@ public class PathFollower : MonoBehaviour
         }
     }
 
-    // debug visualization
+    // debug - visualization
     private void DrawPath()
     {
         if (path.corners.Length < 2)
             return;
 
-        lastPoint = FlattenVector(transform.position);
-
         for (int i = 0; i < path.corners.Length; i++)
         {
             Vector3 flatCorner = FlattenVector(path.corners[i]);
             
-            if (i == currentPathIndex)
+            // determine the start point for this segment
+            Vector3 startPoint;
+            if (i == 0)
             {
-                Debug.DrawLine(lastPoint, flatCorner, Color.yellow);
+                // first segment starts from agent's position
+                startPoint = FlattenVector(transform.position);
             }
             else
             {
-                Debug.DrawLine(lastPoint, flatCorner, Color.green);
+                // other segments start from previous corner
+                startPoint = FlattenVector(path.corners[i - 1]);
             }
             
-            lastPoint = flatCorner;
+            // only draw segments that haven't been completed yet
+            if (i >= currentPathIndex)
+            {
+                if (i == currentPathIndex)
+                {
+                    // current segment (from agent to next waypoint)
+                    Debug.DrawLine(FlattenVector(transform.position), flatCorner, Color.yellow);
+                }
+                else
+                {
+                    // future segments
+                    Debug.DrawLine(startPoint, flatCorner, Color.green);
+                }
+            }
         }
     }
 
-    // fixing variables
+    // utility - fixing variables
     private Vector3 FlattenVector(Vector3 vector)
     {
         return new Vector3(vector.x, transform.position.y, vector.z);
     }
 
+    // public api - request new path
     public void RequestNewPath()
     {
         needsNewPath = true;
         IsAtEndOfPath = false;
     }
+    
+    // public api - request a path to a random position in the redzone
+    public void RequestPathToRedZone()
+    {
+        if (NavMeshGridGenerator.Instance != null)
+        {
+            Vector3 redZoneTarget = NavMeshGridGenerator.Instance.GetRandomValidPositionInZone("RedZone");
+            if (redZoneTarget != Vector3.zero)
+            {
+                CalculatePath(redZoneTarget);
+                needsNewPath = false;
+            }
+            else
+            {
+                Debug.LogWarning("Could not find valid position in RedZone!");
+            }
+        }
+    }
 
+    // public api - reset path
     public void ResetPath()
     {
         hasPath = false;

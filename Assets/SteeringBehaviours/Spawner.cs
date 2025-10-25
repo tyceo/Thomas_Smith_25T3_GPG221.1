@@ -20,9 +20,22 @@ public class Spawner : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
-
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            PathFollowerManager.RequestNewPathForAll();
+        }
     }
+
+    public void RandomSpot()
+    {
+        PathFollowerManager.RequestNewPathForAll();
+    }
+
+    public void GoToZones()
+    {
+        PathFollowerManager.RequestPathToRedZoneForAll();
+    }
+    
     void SpawnInGrid()
     {
         Vector3 startPos = spawnOrigin != null ? spawnOrigin.position : transform.position;

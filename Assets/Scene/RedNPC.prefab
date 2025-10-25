@@ -162,6 +162,7 @@ MonoBehaviour:
   whatLeftIsHitting: 
   whatRightIsHitting: 
   isHitting: 0
+  forwardLeftOrRight: 1
 --- !u!1 &5102067214151641923
 GameObject:
   m_ObjectHideFlags: 0
@@ -227,6 +228,7 @@ GameObject:
   - component: {fileID: 2863166169888409123}
   - component: {fileID: 8620618252999569964}
   - component: {fileID: 2239919448123744858}
+  - component: {fileID: 7065363469942800502}
   m_Layer: 7
   m_Name: RedNPC
   m_TagString: Player
@@ -413,10 +415,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 51457c2644b668c4396fd36d756172a4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  turnSpeed: 2
-  targetObjectTransform: {fileID: 0}
-  targetPosition: {x: 0, y: 0, z: 0}
-  rb: {fileID: 0}
+  rotationSpeed: 180
+--- !u!114 &7065363469942800502
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6782961313300029418}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 369cc63f359f22545a5246059c7b8982, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pointReachedThreshold: 2
+  randomPointRange: 50
+  minDistanceFromGround: 4
+  maxAttempts: 30
+  EnableTurning: 1
 --- !u!1 &7416463565728265056
 GameObject:
   m_ObjectHideFlags: 0
@@ -471,6 +487,7 @@ MonoBehaviour:
   whatLeftIsHitting: 
   whatRightIsHitting: 
   isHitting: 0
+  forwardLeftOrRight: 1
 --- !u!1 &7698960125069910327
 GameObject:
   m_ObjectHideFlags: 0
@@ -633,3 +650,4 @@ MonoBehaviour:
   whatLeftIsHitting: 
   whatRightIsHitting: 
   isHitting: 0
+  forwardLeftOrRight: 1
