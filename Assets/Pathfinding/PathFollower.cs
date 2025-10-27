@@ -279,15 +279,61 @@ public class PathFollower : MonoBehaviour
     {
         if (NavMeshGridGenerator.Instance != null)
         {
-            Vector3 redZoneTarget = NavMeshGridGenerator.Instance.GetRandomValidPositionInZone("RedZone");
-            if (redZoneTarget != Vector3.zero)
+            
+            if (gameObject.name.Contains("RedNPC"))
             {
-                CalculatePath(redZoneTarget);
-                needsNewPath = false;
+                Vector3 redZoneTarget = NavMeshGridGenerator.Instance.GetRandomValidPositionInZone("RedZone");
+                            if (redZoneTarget != Vector3.zero)
+                            {
+                                CalculatePath(redZoneTarget);
+                                needsNewPath = false;
+                            }
+                            else
+                            {
+                                Debug.LogWarning("Could not find valid position in RedZone!");
+                            }
             }
-            else
+
+            if (gameObject.name.Contains("BlueNPC"))
             {
-                Debug.LogWarning("Could not find valid position in RedZone!");
+                Vector3 blueZoneTarget = NavMeshGridGenerator.Instance.GetRandomValidPositionInZone("BlueZone");
+                            if (blueZoneTarget != Vector3.zero)
+                            {
+                                CalculatePath(blueZoneTarget);
+                                needsNewPath = false;
+                            }
+                            else
+                            {
+                                Debug.LogWarning("Could not find valid position in BlueZone!");
+                            }
+            }
+
+            if (gameObject.name.Contains("GreenNPC"))
+            {
+                Vector3 greenZoneTarget = NavMeshGridGenerator.Instance.GetRandomValidPositionInZone("GreenZone");
+                            if (greenZoneTarget != Vector3.zero)
+                            {
+                                CalculatePath(greenZoneTarget);
+                                needsNewPath = false;
+                            }
+                            else
+                            {
+                                Debug.LogWarning("Could not find valid position in GreenZone!");
+                            }
+            }
+
+            if (gameObject.name.Contains("PinkNPC"))
+            {
+                Vector3 pinkZoneTarget = NavMeshGridGenerator.Instance.GetRandomValidPositionInZone("PinkZone");
+                            if (pinkZoneTarget != Vector3.zero)
+                            {
+                                CalculatePath(pinkZoneTarget);
+                                needsNewPath = false;
+                            }
+                            else
+                            {
+                                Debug.LogWarning("Could not find valid position in PinkZone!");
+                            }
             }
         }
     }

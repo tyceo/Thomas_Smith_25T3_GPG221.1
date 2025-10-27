@@ -260,7 +260,7 @@ public class NavMeshGridGenerator : MonoBehaviour
         return nearbyPositions[Random.Range(0, nearbyPositions.Count)];
     }
     
-    // finding random spots inside specific zones like the red zone
+    // finding random spots inside specific zones
     public Vector3 GetRandomValidPositionInZone(string zoneName)
     {
         GameObject zone = GameObject.Find(zoneName);
