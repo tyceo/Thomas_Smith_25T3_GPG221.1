@@ -33,7 +33,8 @@ public class Avoid : MonoBehaviour
         isLeftObject = gameObject.name == "Left";
         currentRayDistance = rayDistance;
     }
-
+    
+    // shoots a raycast forward and rotates the npc away from the obstacle 
     void FixedUpdate()  
     {
         if (rb == null) return;
@@ -44,6 +45,8 @@ public class Avoid : MonoBehaviour
         RaycastHit hit;
         isHitting = Physics.Raycast(transform.position, transform.forward, out hit, currentRayDistance, targetLayers, QueryTriggerInteraction.Ignore);
         
+        
+        // checks to see if the npc should rotate left or right and it rotates faster the closer it gets to the obstacle
         if (isHitting)
         {
             // reset speed when obstacle detected

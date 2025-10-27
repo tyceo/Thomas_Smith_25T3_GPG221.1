@@ -3,6 +3,8 @@ using System.Collections.Generic;
 
 public class Spawner : MonoBehaviour
 {
+    // this managment script spawns things and connects the buttons to relevant functions
+    
     //public GameObject prefab;
     
     public float spacing = 2f; 
@@ -34,6 +36,11 @@ public class Spawner : MonoBehaviour
     public void GoToZones()
     {
         PathFollowerManager.RequestPathToRedZoneForAll();
+    }
+
+    public void RecalculatePath()
+    {
+        PathFollowerManager.RecalculatePathForAll();
     }
     
     void SpawnInGrid()

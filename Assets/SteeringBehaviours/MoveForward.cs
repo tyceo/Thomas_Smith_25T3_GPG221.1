@@ -4,8 +4,8 @@ public class MoveForward : MonoBehaviour
 {
     public Rigidbody Rb;
     public float zSpeed = 500f;
-    public float speedIncreaseRate = 50f; // Speed increase per second
-    public float maxSpeed = 2000f; // Maximum speed limit
+    public float speedIncreaseRate = 50f; // speed increase per second
+    public float maxSpeed = 2000f; // maximum speed limit
 
     private bool isResetting = false;
     private float resetStartSpeed;
@@ -16,7 +16,8 @@ public class MoveForward : MonoBehaviour
     {
         Rb = GetComponent<Rigidbody>();
     }
-
+    
+    // slowly increase speed until max speed is reached, then slow down to base speed if raycast hits something
     void FixedUpdate()
     {
         if (isResetting)
@@ -48,6 +49,7 @@ public class MoveForward : MonoBehaviour
 
     public void ResetSpeed()
     {
+        
         resetStartSpeed = zSpeed;
         resetTimer = 0f;
         isResetting = true;

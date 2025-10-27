@@ -432,6 +432,7 @@ MonoBehaviour:
   randomPointRange: 50
   minDistanceFromGround: 4
   maxAttempts: 30
+  targetMarkerPrefab: {fileID: 5350082136205648465, guid: 0b31523652fced94dbf44dfd2c3eea23, type: 3}
   EnableTurning: 1
 --- !u!1 &7416463565728265056
 GameObject:

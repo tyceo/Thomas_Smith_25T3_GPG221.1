@@ -6,7 +6,7 @@ public class Wander : MonoBehaviour
     private Rigidbody rb;
     
     public float strength = 10f;
-
+// move around randomly abit by turning alittle left or right 
     void Start()
     {
         

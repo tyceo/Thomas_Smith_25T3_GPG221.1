@@ -38,4 +38,15 @@ public static class PathFollowerManager
             }
         }
     }
+    public static void RecalculatePathForAll()
+    {
+        foreach (PathFollower pathFollower in allPathFollowers)
+        {
+            if (pathFollower != null)
+            {
+                pathFollower.RecalculatePath();
+            }
+        }
+    }
 }
+

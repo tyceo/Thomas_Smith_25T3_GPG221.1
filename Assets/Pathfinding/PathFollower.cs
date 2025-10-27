@@ -3,24 +3,27 @@ using UnityEngine.AI;
 
 public class PathFollower : MonoBehaviour
 {
-    // variables - path management
+    // variables for path management
     private NavMeshPath path;
     private Vector3 lastPoint;
     private int currentPathIndex = 0;
     private bool hasPath = false;
     private bool needsNewPath = true;
+    private Vector3 currentTarget; // store current destination
 
     [SerializeField] private float pointReachedThreshold = 0.5f;
-    [SerializeField] private float randomPointRange = 50f; // how far from current position to search for random points
+    [SerializeField] private float randomPointRange = 50f; 
     [SerializeField] private float minDistanceFromGround = 5f; // minimum distance from ground layer objects
     [SerializeField] private int maxAttempts = 30; // maximum attempts to find a valid point
+    [SerializeField] private GameObject targetMarkerPrefab; // prefab to show at target
     private TurnTowards turnTowards;
+    private GameObject targetMarkerInstance; // current spawned marker
     
-    // variables - state tracking
+    // variables for movement
     public bool IsAtEndOfPath { get; private set; }
     public bool EnableTurning = true;
 
-    // unity callbacks - initialization
+    
     private void Awake()
     {
         path = new NavMeshPath();
@@ -37,14 +40,15 @@ public class PathFollower : MonoBehaviour
         PathFollowerManager.UnregisterPathFollower(this);
     }
 
-    // unity callbacks - per frame updates
+    
     private void Update()
     {
-        // check for redzone target request
+        /*
         if (Input.GetKeyDown(KeyCode.Alpha1) || Input.GetKeyDown(KeyCode.Keypad1))
         {
             RequestPathToRedZone();
         }
+        */
         
         if (needsNewPath)
         {
@@ -63,7 +67,7 @@ public class PathFollower : MonoBehaviour
         }
     }
 
-    // pathfinding - get a random valid point on the navmesh
+    // pathfinding, chooses a random grid point
     private Vector3 GetRandomNavMeshPoint(Vector3 center, float range)
     {
         // use the grid system if available
@@ -72,7 +76,7 @@ public class PathFollower : MonoBehaviour
             return NavMeshGridGenerator.Instance.GetRandomValidPositionNear(center, range);
         }
         
-        // fallback to original method
+        // old way using navmesh
         int groundLayer = LayerMask.GetMask("Ground");
         
         for (int attempt = 0; attempt < maxAttempts; attempt++)
@@ -96,35 +100,93 @@ public class PathFollower : MonoBehaviour
         return Vector3.zero; // return zero if no valid point found after all attempts
     }
 
-    // pathfinding - check if a point is at least mindistance away from any ground layer object
+    // pathfinding, check if a point is at least mindistance away from any ground layer object
     private bool IsPointFarFromGround(Vector3 point, float minDistance, int groundLayerMask)
     {
-        // use overlapsphere to check for any ground layer colliders within the minimum distance
+        
         Collider[] colliders = Physics.OverlapSphere(point, minDistance, groundLayerMask);
         
-        // if no colliders found, the point is valid (far enough from ground objects)
         return colliders.Length == 0;
     }
 
-    // pathfinding - path calculation
+    // pathfinding, path calculation
     public void CalculatePath(Vector3 target)
     {
+        currentTarget = target; // store the target
         Vector3 flatStart = FlattenVector(transform.position);
         Vector3 flatTarget = FlattenVector(target);
         if (NavMesh.CalculatePath(flatStart, flatTarget, NavMesh.AllAreas, path))
         {
             hasPath = true;
             currentPathIndex = 0;
+            
+            // spawn target marker
+            SpawnTargetMarker();
         }
     }
-
-    // movement - path following logic
+    
+    // pathfinding, recalculate path to current target
+    public void RecalculatePath()
+    {
+        if (currentTarget != Vector3.zero)
+        {
+            if (hasPath)
+            {
+                CalculatePath(currentTarget);
+            }
+            
+        }
+    }
+    
+    // spawn target marker
+    private void SpawnTargetMarker()
+    {
+        if (targetMarkerPrefab != null)
+        {
+            // remove old marker if it exists
+            RemoveTargetMarker();
+            
+            // spawn new marker at target
+            targetMarkerInstance = Instantiate(targetMarkerPrefab, currentTarget, Quaternion.identity);
+        }
+    }
+    
+    // remove target marker
+    private void RemoveTargetMarker()
+    {
+        if (targetMarkerInstance != null)
+        {
+            Destroy(targetMarkerInstance);
+            targetMarkerInstance = null;
+        }
+    }
+    
+    /*
+    // pathfinding - check if any point in the path is blocked
+    private bool IsPathBlocked(NavMeshPath path)
+    {
+        if (NavMeshGridGenerator.Instance == null)
+            return false;
+        
+        foreach (Vector3 corner in path.corners)
+        {
+            if (NavMeshGridGenerator.Instance.IsPositionBlocked(corner))
+            {
+                return true;
+            }
+        }
+        
+        return false;
+    }
+*/
+    // movement, path following logic
     private void FollowPath()
     {
         if (!hasPath || path.corners.Length == 0 || currentPathIndex >= path.corners.Length)
         {
             IsAtEndOfPath = true;
             turnTowards.StopTurning();
+            RemoveTargetMarker(); // remove marker when path ends
             return;
         }
 
@@ -154,11 +216,12 @@ public class PathFollower : MonoBehaviour
                 hasPath = false;
                 IsAtEndOfPath = true;
                 turnTowards.StopTurning();
+                RemoveTargetMarker(); // remove marker when reaching end
             }
         }
     }
 
-    // debug - visualization
+    // showing the path of each npc
     private void DrawPath()
     {
         if (path.corners.Length < 2)
@@ -172,12 +235,12 @@ public class PathFollower : MonoBehaviour
             Vector3 startPoint;
             if (i == 0)
             {
-                // first segment starts from agent's position
+                
                 startPoint = FlattenVector(transform.position);
             }
             else
             {
-                // other segments start from previous corner
+                
                 startPoint = FlattenVector(path.corners[i - 1]);
             }
             
@@ -186,7 +249,7 @@ public class PathFollower : MonoBehaviour
             {
                 if (i == currentPathIndex)
                 {
-                    // current segment (from agent to next waypoint)
+                    
                     Debug.DrawLine(FlattenVector(transform.position), flatCorner, Color.yellow);
                 }
                 else
@@ -198,20 +261,20 @@ public class PathFollower : MonoBehaviour
         }
     }
 
-    // utility - fixing variables
+    // fixing y pos
     private Vector3 FlattenVector(Vector3 vector)
     {
         return new Vector3(vector.x, transform.position.y, vector.z);
     }
 
-    // public api - request new path
+    
     public void RequestNewPath()
     {
         needsNewPath = true;
         IsAtEndOfPath = false;
     }
     
-    // public api - request a path to a random position in the redzone
+    // request a path to a random position in the redzone
     public void RequestPathToRedZone()
     {
         if (NavMeshGridGenerator.Instance != null)
@@ -229,17 +292,23 @@ public class PathFollower : MonoBehaviour
         }
     }
 
-    // public api - reset path
+    
     public void ResetPath()
     {
         hasPath = false;
         currentPathIndex = 0;
         IsAtEndOfPath = false;
         needsNewPath = true;
+        RemoveTargetMarker(); // remove marker when resetting
         
         if (EnableTurning)
         {
             turnTowards.StartTurning();
         }
+    }
+    
+    private void OnDestroy()
+    {
+        RemoveTargetMarker(); // cleanup on destroy
     }
 }

@@ -47,7 +47,7 @@ public class TurnTowards : MonoBehaviour
         }
     }
 
-    // utility methods
+    // utility stuff
     public bool IsTargetReached()
     {
         if (!hasTarget) return false;
