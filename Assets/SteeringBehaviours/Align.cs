@@ -18,6 +18,8 @@ public class Align : MonoBehaviour
         {
             detector = GetComponentInChildren<Detector>();
         }
+
+        
     }
 
     void FixedUpdate()

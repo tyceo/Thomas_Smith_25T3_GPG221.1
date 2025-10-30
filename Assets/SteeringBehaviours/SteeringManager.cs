@@ -18,6 +18,7 @@ public class SteeringManager : MonoBehaviour
         leftAvoid = leftSensor.GetComponent<Avoid>();
         rightAvoid = rightSensor.GetComponent<Avoid>();
         turnTowards = GetComponent<TurnTowards>();
+        
     }
 
     void Update()
@@ -28,7 +29,7 @@ public class SteeringManager : MonoBehaviour
             bool anyRayHitting = leftAvoid.isHitting || rightAvoid.isHitting;
             
             
-            turnTowards.enabled = !anyRayHitting;
+            //turnTowards.enabled = !anyRayHitting;
 
             
             bool bothSensorsHitting = leftAvoid.isHitting && rightAvoid.isHitting;

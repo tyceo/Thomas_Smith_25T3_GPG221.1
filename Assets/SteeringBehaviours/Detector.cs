@@ -60,7 +60,7 @@ public class Detector : MonoBehaviour
             if (Physics.Raycast(transform.position, direction.normalized, out RaycastHit hit, distance, layerMask))
             {
                 objectsInTrigger.RemoveAt(i);
-                Debug.Log($"Object blocked: {obj.name}. Total objects: {objectsInTrigger.Count}");
+                //Debug.Log($"Object blocked: {obj.name}. Total objects: {objectsInTrigger.Count}");
             }
         }
     }

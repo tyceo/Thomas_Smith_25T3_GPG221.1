@@ -120,6 +120,12 @@ public class PathFollower : MonoBehaviour
             hasPath = true;
             currentPathIndex = 0;
             
+            // Tell TurnTowards where the final destination is
+            if (turnTowards != null && path.corners.Length > 0)
+            {
+                turnTowards.SetFinalDestination(path.corners[path.corners.Length - 1]);
+            }
+            
             // spawn target marker
             SpawnTargetMarker();
         }
