@@ -14,6 +14,7 @@ public class NavMeshGridGenerator : MonoBehaviour
     [SerializeField] private bool excludeEdgeBoxes = true;
     [SerializeField] private bool showBoxes = true;
     
+    
     // storing all the boxes we spawn and tracking which positions are valid or blocked
     private List<GameObject> spawnedBoxes = new List<GameObject>();
     private List<Vector3> validPositions = new List<Vector3>();

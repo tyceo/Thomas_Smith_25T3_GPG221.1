@@ -6,6 +6,7 @@ public class Cohesion : MonoBehaviour
     public Detector detector;
     public Rigidbody rb;
     public float speed = 100f;
+    public bool showDebugRay = true;
 
     void Start()
     {
@@ -27,7 +28,10 @@ public class Cohesion : MonoBehaviour
         Vector3 cohesionForce = CalculateCohesion(neighbours);
         
         // cyan for cohesion
-        Debug.DrawRay(transform.position, cohesionForce.normalized * 5f, Color.cyan);
+        if (showDebugRay)
+        {
+            Debug.DrawRay(transform.position, cohesionForce.normalized * 5f, Color.cyan);
+        }
         
         rb.AddForce(cohesionForce * speed);
     }

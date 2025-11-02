@@ -1312,13 +1312,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spacing: 2
-  gridSize: 7
+  gridSize: 6
   spawnOrigin: {fileID: 1828569702}
   prefabs:
   - {fileID: 6782961313300029418, guid: 38860acfeb933434aa2127542689bac9, type: 3}
   - {fileID: 1101248343612693832, guid: 926bcfdc336154c4bbf3947f53525bcd, type: 3}
   - {fileID: 4214389664474126763, guid: 0cc1fafe90b1dde41b1fb61a7fd3e201, type: 3}
   - {fileID: 5685984773513565026, guid: a0ce5e02d84510846b5acebd56df4f85, type: 3}
+  showAntenna: 0
+  showSeparation: 0
+  showAlign: 0
+  showCohesion: 0
 --- !u!4 &531735074
 Transform:
   m_ObjectHideFlags: 0
@@ -1351,7 +1355,7 @@ MonoBehaviour:
   gridOrigin: {x: -30, y: 0, z: -40}
   gridDimensions: {x: 125, y: 125}
   navMeshSampleDistance: 0.5
-  visualizeInEditor: 0
+  visualizeInEditor: 1
   excludeEdgeBoxes: 1
   showBoxes: 0
 --- !u!1 &749912899

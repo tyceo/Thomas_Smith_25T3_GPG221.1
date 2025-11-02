@@ -11,6 +11,12 @@ public class Spawner : MonoBehaviour
     public int gridSize = 5;   
     public Transform spawnOrigin;
     public List<GameObject> prefabs;
+    
+    [Header("Debug Visualization")]
+    public bool showAntenna = true;
+    public bool showSeparation = true;
+    public bool showAlign = true;
+    public bool showCohesion = true;
 
     
     void Start()
@@ -42,6 +48,45 @@ public class Spawner : MonoBehaviour
     {
         PathFollowerManager.RecalculatePathForAll();
     }
+
+    private void OnValidate()
+    {
+        if (Application.isPlaying)
+        {
+            UpdateDebugVisibility();
+        }
+    }
+
+    private void UpdateDebugVisibility()
+    {
+        // update Avoid (antenna)
+        Avoid[] allAvoidScripts = FindObjectsByType<Avoid>(FindObjectsSortMode.None);
+        foreach (Avoid avoid in allAvoidScripts)
+        {
+            avoid.showDebugRay = showAntenna;
+        }
+
+        // update Separation
+        Separation[] allSeparationScripts = FindObjectsByType<Separation>(FindObjectsSortMode.None);
+        foreach (Separation separation in allSeparationScripts)
+        {
+            separation.showDebugRay = showSeparation;
+        }
+
+        // update Align
+        Align[] allAlignScripts = FindObjectsByType<Align>(FindObjectsSortMode.None);
+        foreach (Align align in allAlignScripts)
+        {
+            align.showDebugRay = showAlign;
+        }
+
+        // update Cohesion
+        Cohesion[] allCohesionScripts = FindObjectsByType<Cohesion>(FindObjectsSortMode.None);
+        foreach (Cohesion cohesion in allCohesionScripts)
+        {
+            cohesion.showDebugRay = showCohesion;
+        }
+    }
     
     void SpawnInGrid()
     {
@@ -60,7 +105,8 @@ public class Spawner : MonoBehaviour
                 Instantiate(selectedPrefab, position, randomRotation);
             }
         }
+
+        // fix debug visibility after spawning
+        UpdateDebugVisibility();
     }
-
-
 }

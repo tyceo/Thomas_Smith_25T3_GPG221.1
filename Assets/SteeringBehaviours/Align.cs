@@ -6,6 +6,7 @@ public class Align : MonoBehaviour
     public Detector detector;
     public Rigidbody rb;
     public float force = 100f;
+    public bool showDebugRay = true;
 
     void Start()
     {
@@ -18,13 +19,10 @@ public class Align : MonoBehaviour
         {
             detector = GetComponentInChildren<Detector>();
         }
-
-        
     }
 
     void FixedUpdate()
     {
-        
         List<GameObject> neighbours = detector.GetObjectsInTrigger();
         
         // Some are Torque, some are Force		
@@ -33,11 +31,14 @@ public class Align : MonoBehaviour
         // Cross will take YOUR direction and the TARGET direction and turn it into a rotation force vector. It CROSSES through both at 90 degrees
         Vector3 cross = Vector3.Cross(transform.forward, targetDirection);
 
-        // Where I WANT to face
-        Debug.DrawRay(transform.position, targetDirection * 10f, Color.blue);
-        
-        // Where I'm facing right now
-        Debug.DrawRay(transform.position, transform.forward * 10f, Color.green);
+        if (showDebugRay)
+        {
+            // Where I WANT to face
+            Debug.DrawRay(transform.position, targetDirection * 10f, Color.blue);
+            
+            // Where I'm facing right now
+            Debug.DrawRay(transform.position, transform.forward * 10f, Color.green);
+        }
 
         rb.AddTorque(cross * force);
     }
@@ -56,8 +57,6 @@ public class Align : MonoBehaviour
         }
 
         alignmentDirection /= neighbours.Count;
-
-
 
         return alignmentDirection;
     }

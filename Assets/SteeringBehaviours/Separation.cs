@@ -7,6 +7,7 @@ public class Separation : MonoBehaviour
     public Rigidbody rb;
     public float speed = 100f;
     public float maxNeighbourDistance = 10f;
+    public bool showDebugRay = true;
 
     void Start()
     {
@@ -37,7 +38,10 @@ public class Separation : MonoBehaviour
         Vector3 separationForce = CalculateSeparation(neighbours);
         
         // red for separation
-        Debug.DrawRay(transform.position, separationForce.normalized * 5f, Color.red);
+        if (showDebugRay)
+        {
+            Debug.DrawRay(transform.position, separationForce.normalized * 5f, Color.red);
+        }
         
         rb.AddForce(separationForce * speed);
     }
@@ -51,7 +55,7 @@ public class Separation : MonoBehaviour
 
         foreach (GameObject neighbour in neighbours)
         {
-            // direction aWAY from each neighbour
+            // direction away from each neighbour
             Vector3 directionToNeighbour = neighbour.transform.position - transform.position;
             float distance = directionToNeighbour.magnitude;
             

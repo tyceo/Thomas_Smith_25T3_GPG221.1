@@ -19,6 +19,8 @@ public class Avoid : MonoBehaviour
     public bool isHitting;
 
     public int forwardLeftOrRight = 1;
+    
+    
 
     void Start()
     {
