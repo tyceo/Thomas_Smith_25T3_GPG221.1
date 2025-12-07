@@ -37,6 +37,16 @@ public class NavMeshGridGenerator : MonoBehaviour
     [ContextMenu("Generate Grid")]
     public void GenerateGridFromNavMesh()
     {
+        // Check if NavMesh exists
+        NavMeshTriangulation triangulation = NavMesh.CalculateTriangulation();
+        if (triangulation.vertices.Length == 0)
+        {
+            Debug.LogError("No NavMesh found! Please bake a NavMesh first.");
+            return;
+        }
+        
+        Debug.Log($"NavMesh has {triangulation.vertices.Length} vertices");
+        
         ClearGrid();
         
         gridOccupancy = new bool[gridDimensions.x, gridDimensions.y];
@@ -116,9 +126,11 @@ public class NavMeshGridGenerator : MonoBehaviour
         if (NavMesh.SamplePosition(position, out hit, navMeshSampleDistance, NavMesh.AllAreas))
         {
             float distance = Vector3.Distance(position, hit.position);
+            //Debug.Log($"Checking position {position}, hit at {hit.position}, distance: {distance}, threshold: {cellSize * 0.5f}");
             return distance < cellSize * 0.5f;
         }
         
+        //Debug.Log($"No NavMesh found near {position}");
         return false;
     }
     
@@ -295,6 +307,11 @@ public class NavMeshGridGenerator : MonoBehaviour
         }
         
         return positionsInZone[Random.Range(0, positionsInZone.Count)];
+    }
+
+    public List<Vector3> GetValidPositions()
+    {
+        return new List<Vector3>(validPositions);
     }
     
     [ContextMenu("Clear Grid")]

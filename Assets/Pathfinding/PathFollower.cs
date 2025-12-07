@@ -363,4 +363,51 @@ public class PathFollower : MonoBehaviour
     {
         RemoveTargetMarker(); // cleanup on destroy
     }
+
+    public void RunAway()
+    {
+        GameObject player = GameObject.Find("Player");
+        if (player == null)
+        {
+            Debug.LogWarning("Player not found!");
+            return;
+        }
+
+        if (NavMeshGridGenerator.Instance == null)
+        {
+            Debug.LogWarning("NavMeshGridGenerator not found!");
+            return;
+        }
+
+        Vector3 closestFarPosition = Vector3.zero;
+        float closestDistance = float.MaxValue;
+
+        foreach (Vector3 boxPosition in NavMeshGridGenerator.Instance.GetValidPositions())
+        {
+            float distanceToPlayer = Vector3.Distance(boxPosition, player.transform.position);
+            
+            // Check if position is at least 20 units away from player
+            if (distanceToPlayer >= 20f)
+            {
+                float distanceToSelf = Vector3.Distance(transform.position, boxPosition);
+                
+                // Find the closest valid position to self
+                if (distanceToSelf < closestDistance)
+                {
+                    closestDistance = distanceToSelf;
+                    closestFarPosition = boxPosition;
+                }
+            }
+        }
+
+        if (closestFarPosition != Vector3.zero)
+        {
+            CalculatePath(closestFarPosition);
+            needsNewPath = false;
+        }
+        else
+        {
+            Debug.LogWarning("No valid position found that is at least 20 units away from Player!");
+        }
+    }
 }

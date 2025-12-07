@@ -1,0 +1,184 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b2f22e7053ea04ed0922308786facc8c, type: 3}
+  m_Name: NormalNPC
+  m_EditorClassIdentifier: 
+  conditions:
+    list:
+    - id: 0
+      name: WantToKillPlayer
+    - id: 1
+      name: BossAlive
+    - id: 2
+      name: NearBoss
+    - id: 3
+      name: ScaredOfPlayer
+    - id: 4
+      name: NearPlayer
+    - id: 5
+      name: BossWantsToKillPlayer
+    - id: 6
+      name: RoamingForAwhile
+    - id: 7
+      name: CanSeeBoss
+    - id: 8
+      name: PathToBoss
+    - id: 9
+      name: GiveBossSpace
+  actions:
+  - name: ReviveBoss
+    isDefault: 0
+    state: {fileID: 4132522907629231325, guid: 0b8b5bb999dd0194b86302447a0959a3, type: 3}
+    cost: 0
+    position: {x: 452.66656, y: 61.333336}
+    pre:
+    - id: 1
+      value: 0
+    post:
+    - id: 1
+      value: 1
+    - id: 3
+      value: 0
+  - name: WantToKillPlayer
+    isDefault: 0
+    state: {fileID: 7256282033631827630, guid: 5a031c1100519234e8b7dfc9b12b23de, type: 3}
+    cost: 0
+    position: {x: 1140.9138, y: 62.592415}
+    pre:
+    - id: 5
+      value: 1
+    - id: 2
+      value: 1
+    - id: 3
+      value: 0
+    - id: 1
+      value: 1
+    post:
+    - id: 0
+      value: 1
+  - name: RunFromPlayer
+    isDefault: 0
+    state: {fileID: 4508223695955607809, guid: b3cbea0cf96d08645bf3db116f1fb5ad, type: 3}
+    cost: 0
+    position: {x: 706.0001, y: 59.333344}
+    pre:
+    - id: 3
+      value: 1
+    - id: 4
+      value: 1
+    post:
+    - id: 3
+      value: 0
+    - id: 4
+      value: 0
+  - name: Roam
+    isDefault: 1
+    state: {fileID: 8522593159532174945, guid: ba17d83f592d5694aa40d4d174e51726, type: 3}
+    cost: 0
+    position: {x: 227.6665, y: 73.333336}
+    pre: []
+    post: []
+  - name: LookForBoss
+    isDefault: 0
+    state: {fileID: 7451134223230686840, guid: ad9b6a2ac72792b45b121272c505e32f, type: 3}
+    cost: 0
+    position: {x: 445.3333, y: 268.6667}
+    pre:
+    - id: 6
+      value: 1
+    - id: 3
+      value: 0
+    - id: 1
+      value: 1
+    - id: 7
+      value: 0
+    post:
+    - id: 7
+      value: 1
+  - name: GoToBoss
+    isDefault: 0
+    state: {fileID: 2152966757210313730, guid: a15b14d56ab2f1d4ab3482afaf944f23, type: 3}
+    cost: 0
+    position: {x: 665.3332, y: 296.33334}
+    pre:
+    - id: 7
+      value: 1
+    - id: 6
+      value: 1
+    - id: 2
+      value: 0
+    post:
+    - id: 8
+      value: 1
+  - name: CheckIfBossCalm
+    isDefault: 0
+    state: {fileID: 7691813352844846949, guid: 2f495a22b5015394aa10308c28c63eb5, type: 3}
+    cost: 0
+    position: {x: 912.6665, y: 240.66669}
+    pre:
+    - id: 8
+      value: 1
+    - id: 2
+      value: 1
+    - id: 5
+      value: 0
+    post:
+    - id: 6
+      value: 0
+    - id: 9
+      value: 1
+    - id: 8
+      value: 0
+  - name: MovingTowardBoss
+    isDefault: 0
+    state: {fileID: 6516269724070306888, guid: 504c8ae9c4016f24fb8bc954fa8a7895, type: 3}
+    cost: 0
+    position: {x: 1168.6666, y: 327.33334}
+    pre:
+    - id: 8
+      value: 1
+    - id: 2
+      value: 0
+    post:
+    - id: 2
+      value: 1
+  goals:
+  - name: TryKillPlayer
+    isDefault: 1
+    position: {x: 226.00006, y: 368}
+    conditions:
+    - id: 0
+      value: 1
+  worldStates:
+  - position: {x: 598.33344, y: 540.33344}
+    isAutoUpdate: 1
+    list:
+    - id: 0
+      value: 0
+    - id: 1
+      value: 0
+    - id: 2
+      value: 0
+    - id: 3
+      value: 0
+    - id: 4
+      value: 1
+    - id: 5
+      value: 1
+    - id: 6
+      value: 0
+    - id: 7
+      value: 0
+    - id: 8
+      value: 0
+    - id: 9
+      value: 0
