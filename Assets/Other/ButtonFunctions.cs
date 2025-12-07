@@ -19,6 +19,6 @@ public class ButtonFunctions : MonoBehaviour
     
     public void LoadProject2Scene()
     {
-        SceneManager.LoadScene("Project2");
+        SceneManager.LoadScene("Project2BiggerTest");
     }
 }

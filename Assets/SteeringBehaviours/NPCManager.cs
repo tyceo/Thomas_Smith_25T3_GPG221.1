@@ -131,12 +131,12 @@ public class NPCManager : MonoBehaviour
             {
                 CanSeeBoss = true;
                 pathFollower.CalculatePath(nearestBoss.transform.position);
-                Debug.Log("Can see boss - clear line of sight!");
+                Debug.Log("Can see boss clear line of sight");
             }
             else
             {
                 CanSeeBoss = false;
-                Debug.Log($"Cannot see boss - blocked by {hit.collider.gameObject.name}");
+                Debug.Log($"Cannot see boss, blocked by {hit.collider.gameObject.name}");
             }
         }
         else
@@ -165,6 +165,7 @@ public class NPCManager : MonoBehaviour
     
     void Start()
     {
+        InvokeRepeating("CheckifBossExists", 0f, 1f);
         idle = false;
         // grab all the movement scripts
         moveForward = GetComponent<MoveForward>();
@@ -290,9 +291,16 @@ public class NPCManager : MonoBehaviour
         }
         
         
-        
-        
-        //i know this will be slow
+
+        if (!bossBlueExists)
+        {
+            canRevive = true;
+            closeToBoss = false;
+        }
+    }
+
+    public void CheckifBossExists()
+    {
         GameObject[] allObjects = FindObjectsByType<GameObject>(FindObjectsSortMode.None);
 
         bossBlueExists = false;
@@ -304,16 +312,6 @@ public class NPCManager : MonoBehaviour
                 bossBlueExists = true;
                 break;
             }
-            
-            
-                
-            
-        }
-
-        if (!bossBlueExists)
-        {
-            canRevive = true;
-            closeToBoss = false;
         }
     }
     

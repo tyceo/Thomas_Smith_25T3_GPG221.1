@@ -8,6 +8,8 @@ public class GameplayManager : MonoBehaviour
     
     public static GameplayManager instance;
     
+    public GameObject Guide;
+    
     private int _points = 0;
     public int points
     {
@@ -45,7 +47,6 @@ public class GameplayManager : MonoBehaviour
             Destroy(gameObject);
         }
         
-        
     }
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -61,6 +62,20 @@ public class GameplayManager : MonoBehaviour
         if (loseObject != null)
         {
             loseObject.SetActive(false);
+        }
+        
+        // Deactivate Guide after 4 seconds
+        if (Guide != null)
+        {
+            Invoke("DeactivateGuide", 4f);
+        }
+    }
+    
+    private void DeactivateGuide()
+    {
+        if (Guide != null)
+        {
+            Guide.SetActive(false);
         }
     }
 

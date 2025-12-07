@@ -144,6 +144,8 @@ GameObject:
   - component: {fileID: 4346281421269833913}
   - component: {fileID: 7410876095171442321}
   - component: {fileID: 8321007166749968360}
+  - component: {fileID: 447444592274910287}
+  - component: {fileID: 4954167906443799567}
   m_Layer: 7
   m_Name: BlueNPC
   m_TagString: Player
@@ -431,7 +433,48 @@ MonoBehaviour:
   trackPlayer: 0
   isScared: 0
   closeToBoss: 0
+  canRevive: 0
+  hasBeenFalseFor5Seconds: 0
+  bossBlueExists: 0
+  wantToKillPlayer: 0
+  bossAlive: 1
+  nearBoss: 0
+  scaredOfPlayer: 0
+  nearPlayer: 0
+  bossWantsToKillPlayer: 0
+  roamingForAwhile: 0
+  canSeeBoss: 0
+  pathToBoss: 0
+  giveBossSpace: 0
   bossRevivePrefab: {fileID: 1249972705047541612, guid: 479ce95a5d71ef74bb30a3990f632c74, type: 3}
+--- !u!114 &447444592274910287
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2702412987539117954}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7e724e36405834fa192b36cd6a4e6059, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  manualUpdate: 0
+  thinkInterval: 1
+  scenario: {fileID: 11400000, guid: daf6c555dd9061f4c9a60be9ed9c0887, type: 2}
+--- !u!114 &4954167906443799567
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2702412987539117954}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6e86dbd895db25f43a28de54b4a465ed, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _NPCManager: {fileID: 0}
 --- !u!1 &5545560126329173723
 GameObject:
   m_ObjectHideFlags: 0
