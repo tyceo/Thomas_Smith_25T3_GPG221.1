@@ -10,11 +10,27 @@ public class NPCManager : MonoBehaviour
     
     public bool canRevive = false;
     
-    
     private float trackPlayerFalseTimer = 0f;
     public bool hasBeenFalseFor5Seconds = false;
 
     public bool bossBlueExists = false;
+    
+    private MoveForward moveForward;
+    private Align align;
+    private Separation separation;
+    private Cohesion cohesion;
+    private GameObject visualForShout;
+    private PathFollower pathFollower;
+    private Coroutine trackPlayerCoroutine;
+    private GameObject onMyWay;
+    private GameObject ahh;
+    
+    //hearing
+    private Hearing hearing;
+    
+    //emitting
+    private SoundEmitter soundEmitter;
+    
     
     //Ant stuffs
 
@@ -153,18 +169,17 @@ public class NPCManager : MonoBehaviour
     
     [SerializeField] private GameObject bossRevivePrefab; 
     
-    private MoveForward moveForward;
-    private Align align;
-    private Separation separation;
-    private Cohesion cohesion;
-    private GameObject visualForShout;
-    private PathFollower pathFollower;
-    private Coroutine trackPlayerCoroutine;
-    private GameObject onMyWay;
-    private GameObject ahh;
+
     
     void Start()
     {
+        soundEmitter = GetComponent<SoundEmitter>();
+        hearing = GetComponent<Hearing>();
+        if (hearing != null)
+        {
+            hearing.OnHeardSound.AddListener(OnSoundHeard);
+        }
+        
         InvokeRepeating("CheckifBossExists", 0f, 1f);
         idle = false;
         // grab all the movement scripts
@@ -314,21 +329,44 @@ public class NPCManager : MonoBehaviour
             }
         }
     }
+    private void OnSoundHeard(SoundEmitter soundSource)
+        {
+            Debug.Log($"{gameObject.name} reacting to sound from {soundSource.gameObject.name}");
+            
+            // Example: If the sound is from the player, start tracking
+            if (soundSource.gameObject.name.Contains("BossBlue"))
+            {
+                
+                BossWantsToKillPlayer = true;
+            }
+        }
     
     public void ShowVisualForShout()
     {
+        
+        
         if (visualForShout != null )
         {
             StartCoroutine(ShowVisualForShoutCoroutine());
         }
+
+        
     }
+    
+    
     
     private IEnumerator ShowVisualForShoutCoroutine()
     {
         yield return new WaitForSeconds(0.2f);
         if (GameplayManager.instance.attacking)
         {
-            BossWantsToKillPlayer = true;
+            if (soundEmitter != null)
+            {
+                soundEmitter.EmitSound();
+            }
+            
+            
+            //BossWantsToKillPlayer = true;
             visualForShout.SetActive(true);
             yield return new WaitForSeconds(2f);
         

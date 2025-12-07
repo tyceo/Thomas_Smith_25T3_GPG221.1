@@ -23,6 +23,7 @@ GameObject:
   - component: {fileID: 4696941669274666531}
   - component: {fileID: 4829344724857410271}
   - component: {fileID: 111488064356622849}
+  - component: {fileID: 2800394411469646456}
   m_Layer: 7
   m_Name: BossBlueNPC
   m_TagString: Player
@@ -309,7 +310,38 @@ MonoBehaviour:
   trackPlayer: 0
   isScared: 0
   closeToBoss: 0
+  canRevive: 0
+  hasBeenFalseFor5Seconds: 0
+  bossBlueExists: 0
+  wantToKillPlayer: 0
+  bossAlive: 1
+  nearBoss: 0
+  scaredOfPlayer: 0
+  nearPlayer: 0
+  bossWantsToKillPlayer: 0
+  roamingForAwhile: 0
+  canSeeBoss: 0
+  pathToBoss: 0
+  giveBossSpace: 0
   bossRevivePrefab: {fileID: 1249972705047541612}
+--- !u!114 &2800394411469646456
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1249972705047541612}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 179f55ab4cee40e499282373525bbc1b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  soundRadius: 14.29
+  hearingLayer:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  useRaycastFiltering: 0
+  gizmoColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
 --- !u!1 &1643407662470131629
 GameObject:
   m_ObjectHideFlags: 0
@@ -870,7 +902,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &4543931529677742248
 Transform:
   m_ObjectHideFlags: 0
